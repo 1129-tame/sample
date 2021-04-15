@@ -2,13 +2,13 @@
 
 $kansuji = '';
 
-// $num = $_GET['num'];
-$num = 20077002334;
+$num = $_GET['num'];
+// $num = 10002334;
 $str_num = strlen($num);
 $whilenum = 0;
 
 if (!preg_match('/\A[1-9]\d*/u',"$num")) {
-    echo "204(1)マッチしませんでした";
+    echo "HTTP:204";
     exit;
 }
 if ($str_num > 16) {
@@ -79,7 +79,6 @@ $whilenum++;
                     if (!preg_match('/\A(兆|億|万)/', $kansuji)) {
                         $kansuji = mb_substr($kansuji, 1);
                     }
-                    
                     break;
                 case 1:
                     $kansuji = '壱' . $kansuji;
@@ -110,14 +109,16 @@ $whilenum++;
                     break;
                 }
                 $str_num--;
-                if (preg_match('/\d[0{5,8}]/', $num)) {
+
+                if (preg_match('/.*0{4}....\z/', $num)) {
                     $kansuji = str_replace('万', '', $kansuji);
                 }
-                if (preg_match('/\d[0{9,12}]\d{, 8}/', $num)) {
+                if (preg_match('/0{4}........\z/', $num)) {
                     $kansuji = str_replace('億', '', $kansuji);
                 }
-                echo "$kansuji\n";
+                
 }
 echo "$kansuji";
+// header('Location: api_test.php?kan=' . "$kansuji");
 // print $json = json_encode($kansuji, JSON_PRETTY_PRINT);
 // print json_decode($json);

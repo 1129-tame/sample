@@ -1,10 +1,26 @@
 <?php
 
 $kanji = $_GET['kan'];
-// $kanji = '壱千五百八拾参';
+// $kanji = '参百億参百四拾万参百四拾';
 $kakeru = 1;
 $sum = 0;
 $last = 0;
+
+// エラー表示
+if (preg_match('/\w/',"$kanji")) {
+    echo "HTTP:204";
+    exit;
+}
+if (preg_match('/一|二|三|十|/', $kanji)) {
+    echo "HTTP:204";
+    exit;
+}
+
+if ($kanji == "零") {
+    echo 0;
+    exit;
+}
+
 
 // 桁ごとに配列化
 $kanji_point = preg_replace('/(兆|億|万)/', '$1,', $kanji); // 弐億参百万=>弐億,参百万,
@@ -12,11 +28,16 @@ $kanji_array = explode(',', $kanji_point); //,を目印に配列
 
 foreach ($kanji_array as $kan) {
     if (preg_match('/兆/', $kan)) {
-        $count = 10000000000000;
+        $count = 1000000000000;
+
     } elseif (preg_match('/億/', $kan)) {
         $count = 100000000;
+
     } elseif  (preg_match('/万/', $kan)) {
         $count = 10000;
+
+    } elseif ($kan == '') {
+        $count = 0;
     } else {
         $count = 1;
     }
@@ -70,11 +91,15 @@ foreach ($kanji_array as $kan) {
             break;
 
         }
+
     }
-    // var_dump($count);
-    // var_dump($kakeru);
-    // var_dump($sum);
-    $last += $count * ($sum + $kakeru);
+
+
+    if ((!preg_match('/壱兆|壱億|壱万/', $kan))&&($kakeru == 1)) {
+        $kakeru = 0;
+    }
+
+    $last += $count * $sum + $count * $kakeru;
     
 
     // 値の初期化
