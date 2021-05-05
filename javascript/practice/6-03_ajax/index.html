@@ -1,0 +1,146 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>テンプレート</title>
+<link href="../_common/images/favicon.ico" rel="shortcut icon">
+<link href="https://fonts.googleapis.com/css?family=M+PLUS+1p:400,500" rel="stylesheet">
+<link href="../_common/css/style.css" rel="stylesheet">
+<style>
+    .list {
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
+    .list h2 {
+        margin: 0 0 2em 0;
+        font-size: 16px;
+        text-align: center;
+    }
+    .seminar {
+        float: left;
+        margin: 10px 10px 10px 0;
+        border: 1px solid #23628f;
+        padding: 4px;
+        width: 25%;
+    }
+    .check {
+        margin: 0;
+        padding: 8px;
+        font-size: 12px;
+        color: #ffffff;
+        background-color: #23628f;
+        text-align: center;
+        cursor: pointer;
+    }
+    .red {
+        background-color: #e33a6d;
+    }
+    .green {
+        background-color: #7bc52e;
+    }
+</style>
+</head>
+<body>
+<header>
+<div class="container">
+<h1>タイトル</h1>
+<h2>サブタイトル</h2>
+</div><!-- /.container -->
+</header>
+<main>
+<div class="container">
+<section>
+    <ul class="list">
+        <li class="seminar" id="js">
+            <h2>JavaScript勉強会</h2>
+            <p class="check" id="check1">空き席状況を確認</p>
+        </li>
+        <li class="seminar" id="security">
+            <h2>セキュリティ対策講座</h2>
+            <p class="check" id="check2">空き席状況を確認</p>
+        </li>
+        <li class="seminar" id="aiux">
+            <h2>AIを利用したUX設計</h2>
+            <p class="check" id="check3">空き席状況を確認</p>
+        </li>
+    </ul>
+</section>
+</div><!-- /.container -->
+</main>
+<footer>
+<div class="container">
+<p>JavaScript Samples</p>
+</div><!-- /.container -->
+</footer>
+<script>
+    'use strict';
+
+    function ready(fn) {
+        if (document.readyState != 'loading'){
+            fn();
+        } else {
+            document.addEventListener('DOMContentLoaded', fn);
+        }
+    }
+
+    async function rec() {
+        const request = await fetch("data.json");
+        const data = await request.json(); 
+        console.log(data);
+        data.forEach(function(item, index){
+          if (item.crowded === 'yes') {
+                   const idName = item.id;
+                document.getElementById(idName).querySelector('p:nth-child(2)').classList.add("crowded");
+          }
+        }); 
+    }
+
+    ready(rec);
+
+    function stock(value) {
+        const val = document.getElementById(value);
+        if (val.classList.contains('crowded') == true) {
+        val.textContent = '残席わずか';
+        val.classList.add('red');
+        } else {
+        val.textContent = 'お席あります。';
+        val.classList.add('green');
+        }
+    }
+
+    document.getElementById('check1').onclick = function() {
+        stock("check1"); // ""がないとエラー
+    }
+    document.getElementById('check2').onclick = function() {
+        stock("check2"); // ""がないとエラー
+    }
+    document.getElementById('check3').onclick = function() {
+        stock("check3"); // ""がないとエラー
+    }
+
+
+        // function rec() {
+    //     const request = new XMLHttpRequest();
+    //     request.open('GET', 'data.json', true);
+    //     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+    //     request.onload = function() {
+    //         if (this.status >= 200 && this.status < 400) {
+    //             var data = JSON.parse(this.response);
+    //             data.forEach(function(item, index){
+    //                 if (item.crowded === 'yes') {
+    //                     const idName = item.id;
+    //                     document.getElementById(idName).querySelector('p:nth-child(2)').classList.add("crowded");
+    //                 }
+    //             });
+    //         } 
+    //         };
+    //         request.onerror = function() {
+    //         };
+    //         request.send();
+    // }
+</script>
+</body>
+</html>

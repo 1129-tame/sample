@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>寿命サイト</title>
+        <meta name="viewport" contact="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="./style.css">
+    </head>
+<body>
+    <h1>人生の残り日数診断サイト</h1>
+    <h2>0~80才の方は自身の年齢と性別を選択してください。</h2>
+    <form method="post" action='life_time.php'>
+        <p>
+            <label>年齢：</label>
+            <input type="text" name='age'>
+        </p>
+        <p>
+            <label>性別：</label>
+            <label><input type="radio" name="cs" value="男性" >男性</label>
+            <label><input type="radio" name="cs" value="女性" >女性</label>
+            <label><input type="radio" name="cs" value="その他" >指定しない</label>
+        </p>
+        <p>
+        <p class = 'button'>
+            <input type="submit" value="診断する">
+        </p>
+    </form>
+</body>
+</html>
