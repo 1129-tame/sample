@@ -5,12 +5,19 @@
  * 問題１：
  * addNumberFactoryを短く書き直してみましょう。
  */
-function addNumberFactory(num) {
-    function addNumber(value) {
-        return num + value;
-    }
-    return addNumber;
+// function addNumberFactory(num) {
+//     function addNumber(value) {
+//         return num + value;
+//     }
+//     return addNumber;
+// }
+
+const addNumberFactory = num => {
+    return value => { return num + value; }
 }
+
+// 解答
+// const addNumberFactory = num => value => num + value;
 
 const add5 = addNumberFactory(5);
 const result = add5(10);
@@ -20,17 +27,31 @@ console.log(result);
  * 問題２：
  * incrementFactoryを短く書き直してみましょう。
  */
-function incrementFactory() {
+// function incrementFactory() {
     
-    let num = 0;
+//     let num = 0;
 
-    function a() {
+//     function a() {
+//         num = num + 1;
+//         console.log(num);
+//     }
+
+//     return a;
+// }
+const incrementFactory = (num = 0) => {
+    return () => {
         num = num + 1;
         console.log(num);
     }
-
-    return a;
 }
+
+// 解答
+// const incrementFactory = () => {
+//     let num = 0;
+//     return () => {
+//         console.log(++num);
+//     }
+// }
 
 const increment = incrementFactory();
 

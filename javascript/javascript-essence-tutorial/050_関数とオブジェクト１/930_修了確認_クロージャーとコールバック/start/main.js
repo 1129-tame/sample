@@ -9,7 +9,10 @@
  * 
  */
 function hello(name) {
-  
+    // ()をつけた時点で実行されてしまう、戻り値に関数を設定する必要
+    return function() {
+        console.log('hello ' + name);
+    }
 }
 
 /**

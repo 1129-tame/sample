@@ -4,26 +4,66 @@
  * １秒後にconsole.logまたはalertで計算式が表示される
  * ようにcalcFactory関数内の実装を変更してみてください。
  */
+// function calcFactory(val, callback) {
+//     function callbackAfter1s(str) {
+//         setTimeout(callback,1000);
+//     }
+//     return {
+//         plus: function(target) {
+//             const newVal = val + target;
+//             setTimeout(function() {
+//                 callback(`${val} + ${target} = ${newVal}`);
+//             },1000);
+//             val = newVal;
+//         },
+//         minus: function(target) {
+//             const newVal = val - target;
+//             setTimeout(function() {
+//                 callback(`${val} - ${target} = ${newVal}`);
+//             },1000);
+//             val = newVal;
+//         },
+//         multiply: function(target) {
+//             const newVal = val * target;
+//             setTimeout(function() {
+//                 callback(`${val} x ${target} = ${newVal}`);
+//             },1000);
+//             val = newVal;
+//         },
+//         divide: function(target) {
+//             const newVal = val / target;
+//             setTimeout(function() {
+//                 callback(`${val} / ${target} = ${newVal}`);
+//             },1000);
+//             val = newVal;
+//         }
+//     };
+// }
+
 function calcFactory(val, callback) {
+
+    function callbackAfter1s(str) {
+        setTimeout(callback.bind(null, str), 1000);
+    }
     return {
         plus: function(target) {
             const newVal = val + target;
-            callback(`${val} + ${target} = ${newVal}`);
+            callbackAfter1s(`${val} + ${target} = ${newVal}`);
             val = newVal;
         },
         minus: function(target) {
             const newVal = val - target;
-            callback(`${val} - ${target} = ${newVal}`);
+            callbackAfter1s(`${val} - ${target} = ${newVal}`);
             val = newVal;
         },
         multiply: function(target) {
             const newVal = val * target;
-            callback(`${val} x ${target} = ${newVal}`);
+            callbackAfter1s(`${val} x ${target} = ${newVal}`);
             val = newVal;
         },
         divide: function(target) {
             const newVal = val / target;
-            callback(`${val} / ${target} = ${newVal}`);
+            callbackAfter1s(`${val} / ${target} = ${newVal}`);
             val = newVal;
         }
     };

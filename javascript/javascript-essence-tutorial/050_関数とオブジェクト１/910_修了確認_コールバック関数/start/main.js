@@ -12,7 +12,13 @@ const person = {
     }
 }
 
-// setTimeout(/** ここに追記 */, 1000);
+
+// setTimeout(console.log(person.hello()), 2000);
+// console.log(person.hello());
+setTimeout(function() {
+    const hello = person.hello();
+    console.log(hello);
+}, 1000);
 
 /**
  * 問題２：
@@ -25,6 +31,11 @@ const person = {
  * 示する関数です。
  */
 
+// setTimeout(alert(person.hello()), 1000);
+// setTimeout(function() {
+//     const konnnitiha = person.hello();
+//     alert(konnnitiha);
+// }, 1000);
 
 /**
  * 問題３：
@@ -46,7 +57,8 @@ function after1s(callack) {
 }
 
 // この時点で実行します。
-// after1s(obj.greeting);
+after1s(obj.greeting);
+console.log('myanser is hey');
 
 // この後でgreetingを書き換えます。
 obj.greeting = function() {
@@ -65,32 +77,35 @@ obj.greeting = function() {
  */
 function calcFactory(val) {
     return {
-        plus: function(target) {
+        plus: function(target, fn) {
             const newVal = val + target;
-            console.log(`${val} + ${target} = ${newVal}`);
+            fn(`${val} + ${target} = ${newVal}`);
             val = newVal;
         },
-        minus: function(target) {
+        minus: function(target, fn) {
             const newVal = val - target;
-            console.log(`${val} - ${target} = ${newVal}`);
+            fn(`${val} - ${target} = ${newVal}`);
             val = newVal;
         },
-        multiply: function(target) {
+        multiply: function(target, fn) {
             const newVal = val * target;
-            console.log(`${val} x ${target} = ${newVal}`);
+            fn(`${val} x ${target} = ${newVal}`);
             val = newVal;
         },
-        divide: function(target) {
+        divide: function(target, fn) {
             const newVal = val / target;
-            console.log(`${val} / ${target} = ${newVal}`);
+            fn(`${val} / ${target} = ${newVal}`);
             val = newVal;
         }
     };
 }
+function callback(fn) {
+    fn();
+}
 
 const calc = calcFactory(10);
-calc.plus(5); 
-calc.minus(3); 
-calc.multiply(3);
-calc.divide(2);
+calc.plus(5, console.log); 
+calc.minus(3, console.log); 
+calc.multiply(3, console.log);
+calc.divide(2, console.log);
 
