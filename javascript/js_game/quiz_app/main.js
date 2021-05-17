@@ -92,3 +92,34 @@
         
     })
 }
+
+{
+     // カウントダウン関数
+     function countdown(due) {
+        const now = new Date();
+
+        const rest = due.getTime() - now.getTime();
+        const sec = Math.floor(rest / 1000) % 60; //秒
+        if (sec === 0) {
+            console.log('こんにちは！');
+        }
+        return sec;
+    }
+
+    let goal = new Date();
+    goal.setSeconds(30);
+
+    // console.log(countdown(goal));
+    function recalc() {
+        const counter = countdown(goal);
+
+        document.getElementById('sec').textContent = String(counter).padStart(2, '0');
+        refresh();
+    }
+    
+    function refresh() {
+        setTimeout(recalc, 1000);
+    }
+
+    recalc();
+}
