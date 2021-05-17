@@ -28,7 +28,7 @@ body {
 }
 
 #result.hidden {
-    transform: translate(-800px);
+    transform: translate(-1000px);
 }
 
 #result > p {
